@@ -1,9 +1,12 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 
 const indexRouter = require('./Routes/index');
+const speakerRouter = require('./Routes/speakers');
+const eventRouter = require('./Routes/events');
 
 const app = express();
 
@@ -21,6 +24,9 @@ app.use(expressLayouts);
 // Static files
 app.use(express.static('Public'));
 
+// app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
 // Connect DB
 mongoose.connect(process.env.MONGODB_URL, { 
     useNewUrlParser: true, 
@@ -33,6 +39,8 @@ db.once('open', () => console.log('Connected to MongoDB'));
 
 // Routes
 app.use('/', indexRouter);
+app.use('/speakers', speakerRouter);
+app.use('/events', eventRouter);
 
 const port = process.env.PORT || 3000;
 

@@ -1,0 +1,11 @@
+<h2>Add A Speaker</h2>
+
+<%- include('../Partials/errorMsg.ejs') %> 
+
+<form action="/speakers/add" method="POST">
+
+    <%- include('_form_fields') %>
+
+    <a href="/" class="btn btn-secondary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
